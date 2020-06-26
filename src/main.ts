@@ -3,10 +3,11 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { ValidationPipe } from '@nestjs/common';
+import Fastify from 'fastify-compress';
+
 import { AppModule } from './app.module';
 import { ConfigService } from './config/config.service';
-
-import Fastify = require('fastify-compress');
 
 const configService = new ConfigService();
 
@@ -17,6 +18,9 @@ async function bootstrap() {
   );
   app.enableCors();
   app.register(Fastify);
+
+  app.useGlobalPipes(new ValidationPipe());
+
   await app.listen(3000, '0.0.0.0');
 }
 bootstrap();

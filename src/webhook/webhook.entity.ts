@@ -6,10 +6,10 @@ export class Webhook {
   @Field(() => ID)
   _id: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   url: string;
 
-  @Field(() => [String], { nullable: true })
+  @Field(() => [String])
   events: string[];
 
   @Field(() => GraphQLJSONObject, { nullable: true })
