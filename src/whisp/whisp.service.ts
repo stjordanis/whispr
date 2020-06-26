@@ -72,9 +72,9 @@ export class WhispService {
       // ... wait until it is loaded ...
       filePromise.file.then((file) => {
         if (
-          file
-          && file.createReadStream
-          && {}.toString.call(file.createReadStream) === '[object Function]'
+          file &&
+          file.createReadStream &&
+          {}.toString.call(file.createReadStream) === '[object Function]'
         ) {
           // ... and save it in s3 ...
           const savePromise = this.imageService.saveFile(file, path);
@@ -93,7 +93,11 @@ export class WhispService {
     return newObj;
   }
 
-  async findAll(filter?: any, sort: object = {}, limit: number = null): Promise<IWhisp[]> {
+  async findAll(
+    filter?: any,
+    sort: object = {},
+    limit: number = null,
+  ): Promise<IWhisp[]> {
     return this.whispModel.find(filter).sort(sort).limit(limit).exec();
   }
 
@@ -114,10 +118,19 @@ export class WhispService {
   }
 
   async replace(id: string, whisp: any): Promise<any> {
-    return this.whispModel.replaceOne({ _id: id }, whisp).exec();
+    const replacedWhisp = await this.whispModel
+      .replaceOne({ _id: id }, whisp)
+      .exec();
+    return replacedWhisp;
   }
 
-  async delete(id) {
-    return this.whispModel.deleteOne({ _id: id }).exec();
+  async delete(id: string) {
+    const { n: countOfDeletedWhisp } = await this.whispModel
+      .deleteOne({ _id: id })
+      .exec();
+    if (countOfDeletedWhisp <= 0) {
+      return false;
+    }
+    return true;
   }
 }
