@@ -7,6 +7,7 @@ import { DistributionService } from '../distribution/distribution.service';
 import { FileService } from '../file/file.service';
 import { Event, EventNames } from '../event/event.entity';
 import { EventService } from '../event/event.service';
+import { WhispInputType } from './whisp.input';
 
 @Injectable()
 export class WhispService {
@@ -20,7 +21,7 @@ export class WhispService {
     private readonly eventService: EventService,
   ) {}
 
-  async create(whispIn: any): Promise<IWhisp> {
+  async create(whispIn: WhispInputType): Promise<IWhisp> {
     let whisp = whispIn;
     if (!whisp.timestamp) {
       whisp.timestamp = new Date().toISOString();

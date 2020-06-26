@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { WhispService } from './whisp.service';
 import { IWhisp } from '../interfaces/whisp.interface';
+import { WhispInputType } from './whisp.input';
 
 @Controller('whisp')
 export class WhispController {
@@ -18,7 +19,7 @@ export class WhispController {
 
   @Post()
   @HttpCode(201)
-  async create(@Body() whisp: IWhisp) {
+  async create(@Body() whisp: WhispInputType) {
     return this.whispService.create(whisp);
   }
 
