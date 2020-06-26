@@ -1,5 +1,10 @@
 import {
-  Resolver, Query, Mutation, Args, Subscription, Int,
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Subscription,
+  Int,
 } from '@nestjs/graphql';
 import { GraphQLJSONObject } from 'graphql-type-json';
 import { PubSubEngine } from 'graphql-subscriptions';
