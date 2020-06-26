@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import { IWebhook } from '../interfaces/webhook.interface';
 import { Event } from '../event/event.entity';
+import { WebhookInputType } from './webhook.input';
 
 @Injectable()
 export class WebhookService {
@@ -12,7 +13,7 @@ export class WebhookService {
     @InjectModel('Webhook') private readonly webhookModel: Model<IWebhook>,
   ) {}
 
-  async create(webhook: IWebhook): Promise<IWebhook> {
+  async create(webhook: WebhookInputType): Promise<IWebhook> {
     return this.webhookModel.create(webhook);
   }
 
